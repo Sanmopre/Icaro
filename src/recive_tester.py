@@ -1,6 +1,11 @@
 import socket
 from protofiles import gcs_data_pb2
 from google.protobuf.json_format import MessageToDict
+from gpiozero import AngularServo
+
+servo = AngularServo(18, min_pulse_width=0.0006, max_pulse_width=0.0023)
+servo2 = AngularServo(23, min_pulse_width=0.0006, max_pulse_width=0.0023)
+
 
 def receive_udp_messages(address, port):
     # Create a UDP socket
@@ -20,10 +25,13 @@ def receive_udp_messages(address, port):
             # Convert the message to a dictionary and print it
             gcs_data_dict = MessageToDict(gcs_data)
             print("Received message from GCS:", gcs_data_dict)
+            if 'pitch' in gcs_data_dict:
+                servo.angle = gcs_data_dict['pitch']
+                servo2.angle = gcs_data_dict['pitch']
 
     except KeyboardInterrupt:
         # Close the socket when the script is interrupted
         sock.close()
 
 # Use the function
-receive_udp_messages("192.168.1.110", 9124)
+receive_udp_messages("192.168.1.145", 9124)
