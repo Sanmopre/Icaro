@@ -1,4 +1,4 @@
-sudo apt-get install python3-dev libboost-python-dev python3-setuptools python3-rpi.gpio raspi-config
+sudo apt-get install python3-dev libboost-python-dev python3-setuptools python3-rpi.gpio raspi-config make g++ g++-arm-linux-gnueabihf protobuf-compiler libprotobuf-dev
 sudo raspi-config
 echo
 echo "REBOOTING IS NECESARY TO CONTINUE"
